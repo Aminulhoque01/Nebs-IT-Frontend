@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layout/MainLayout";
-import OverviewPage from "../page/Dashboard/OverviewPage";
+
+import NoticeManagement from "../page/Notice/Notice";
  
  
  
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <OverviewPage />,
+        element: <NoticeManagement />,
       },
      
       

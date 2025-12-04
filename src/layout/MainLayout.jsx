@@ -14,12 +14,12 @@ const MainLayout = () => {
       <Sidebar isSidebarOpen={isSidebarOpen}  toggleSidebar={toggleSidebar} />
       {/* Main Content */}
       <section className="w-full h-full">
-        <div className="md:ml-[330px] z-10 sticky top-0 left-0">
+        <div className="md:ml-[310px] z-10 sticky top-0 left-0">
           <Header toggleSidebar={toggleSidebar} />
         </div>
         <div className="">
           {/* bg-[#FAFBFC] */}
-          <div className="md:ml-[340px] md:px-3 pt-4">
+          <div className="md:ml-[310px] md:px-3 pt-4">
           <Outlet />
         </div>
         </div>
