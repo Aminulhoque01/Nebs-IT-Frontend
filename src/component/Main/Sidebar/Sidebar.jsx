@@ -53,7 +53,7 @@ const dynamicSidebarItems = [
     icon: <FaCog className="size-6" />,
   },
   {
-    path: "/Notice Board",
+    path: "/add-notice",
     name: "Notice Board",
     icon: <FaCog className="size-6" />,
   },
@@ -141,7 +141,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 ease-in-out md:hidden`}
       >
-        <div className="flex flex-col justify-center items-center pt-5 gap-2 text-white">
+        <div className="flex flex-col justify-center items-center pt-5 gap-2 text-[rgba(0,0,0,0.8)]">
           <img src={LogoImage} alt="logo" className="w-32 h-12 bg-[#FEFEFE] " />
         </div>
         <ul className="w-full flex flex-col gap-3 mt-[15px]">
@@ -152,8 +152,8 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
               className={({ isActive }) =>
                 `w-[60%] mx-auto px-2 py-2 flex justify-start items-center gap-3 transition duration-100 ease-linear hover:pl-3 ${
                   isActive
-                    ? "bg-[#161D6F] text-white rounded-md border-l-4 border-[#98DED9]"
-                    : "text-[#FEFEFE]"
+                    ? "bg-[#F5F6FA] text-[rgba(0,0,0,0.7)] rounded-md border-l-4 border-[#98DED9]"
+                    : "text-[rgba(0,0,0,0.8)]"
                 }`
               }
             >

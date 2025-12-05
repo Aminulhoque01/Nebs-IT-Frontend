@@ -73,6 +73,13 @@ const CreateNotice = () => {
               <label className="font-medium text-gray-700">Notice Type</label>
               <select className="w-full border rounded-lg p-3 bg-gray-50 focus:outline-blue-500">
                 <option>Select Notice Type</option>
+                <option>Warning / Disciplinary</option>
+                <option>Performance Improvement</option>
+                <option>Appreciation / Recognitio</option>
+                <option>Attendance / Leave Issue</option>
+                <option>Payroll / Compensation</option>
+                <option>Contract / Role Update</option>
+                <option>Advisory / Personal Reminder</option>
               </select>
             </div>
 
@@ -134,15 +141,15 @@ const CreateNotice = () => {
 
           {/* Buttons */}
           <div className="md:flex justify-between pt-4">
-            <button className="px-6 py-3 rounded-lg bg-gray-200 hover:bg-gray-300 font-medium">
+            <button className="px-6 py-2  rounded-[100px] bg-gray-200 hover:bg-gray-300 font-medium">
               Cancel
             </button>
 
             <div className="md:flex gap-3  ">
-              <button className="px-6 py-3 rounded-lg bg-blue-100 text-blue-700 font-medium hover:bg-blue-200">
+              <button className="px-6 py-2 rounded-[100px] bg-blue-100 text-blue-700 font-medium hover:bg-blue-200">
                 Save as Draft
               </button>
-              <button className="px-6 py-3 rounded-lg bg-[#F95524] text-white font-semibold hover:bg-orange-600">
+              <button className="px-6  py-2 rounded-[100px] bg-[#F95524] text-white font-semibold hover:bg-orange-600">
                 Publish Notice
               </button>
             </div>
