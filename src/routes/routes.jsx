@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layout/MainLayout";
 
 import NoticeManagement from "../page/Notice/Notice";
+import CreateNotice from "../page/AddNotice/AddNotice";
  
  
  
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <NoticeManagement />,
+      },
+      {
+        path:"/add-notice",
+        element: <CreateNotice />,
       },
      
       

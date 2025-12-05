@@ -1,5 +1,5 @@
- 
 import { FiEye, FiEdit2, FiMoreVertical } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 const notices = [
   {
@@ -60,23 +60,27 @@ const notices = [
   },
 ];
 
-const NoticeManagement=()=> {
+const NoticeManagement = () => {
   return (
-    <div className="w-full p-6 bg-gray-50 min-h-screen">
+    <div className="w-full p-6  min-h-screen">
       {/* Header */}
-      <div className="flex justify-between items-center mb-6">
+      <div className="md:flex justify-between items-center mb-6">
         <div>
           <h2 className="text-xl font-semibold">Notice Management</h2>
           <p className="text-sm text-gray-600">
-            Active Notices: <span className="text-green-600 font-semibold">08</span> &nbsp; | &nbsp; 
-            Draft Notice: <span className="text-[#F95524] font-semibold">04</span>
+            Active Notices:{" "}
+            <span className="text-green-600 font-semibold">08</span> &nbsp; |
+            &nbsp; Draft Notice:{" "}
+            <span className="text-[#F95524] font-semibold">04</span>
           </p>
         </div>
 
         <div className="flex gap-3">
-          <button className="bg-[#F95524] text-white px-4 py-2 rounded-lg hover:bg-orange-600">
-            + Create Notice
-          </button>
+          <Link to="/add-notice">
+            <button className="bg-[#F95524] text-white px-4 py-2 rounded-lg hover:bg-orange-600">
+              + Create Notice
+            </button>
+          </Link>
           <button className="border border-gray-300 px-4 py-2 rounded-lg hover:bg-gray-100 text-[#F59E0B]">
             All Draft Notice
           </button>
@@ -97,12 +101,8 @@ const NoticeManagement=()=> {
           <option>Published</option>
           <option>Unpublished</option>
           <option>Draft</option>
-         
         </select>
-        <input
-          type="date"
-          className="border p-2 rounded-lg text-sm"
-        />
+        <input type="date" className="border p-2 rounded-lg text-sm" />
         <button className="border border-gray-400 px-4 py-2 rounded-lg text-sm hover:bg-gray-100">
           Reset Filters
         </button>
@@ -159,23 +159,21 @@ const NoticeManagement=()=> {
         </table>
 
         {/* Pagination */}
-       
       </div>
-       <div className="flex justify-center py-4 gap-2">
-          {[1, 2, 3, 4, 5].map((page) => (
-            <button
-              key={page}
-              className={`px-3 py-1 rounded-lg border ${
-                page === 1 ? "bg-blue-600 text-white" : "hover:bg-gray-100"
-              }`}
-            >
-              {page}
-            </button>
-          ))}
-        </div>
+      <div className="flex justify-center py-4 gap-2">
+        {[1, 2, 3, 4, 5].map((page) => (
+          <button
+            key={page}
+            className={`px-3 py-1 rounded-lg border ${
+              page === 1 ? "bg-blue-600 text-white" : "hover:bg-gray-100"
+            }`}
+          >
+            {page}
+          </button>
+        ))}
+      </div>
     </div>
   );
-}
-
+};
 
 export default NoticeManagement;
