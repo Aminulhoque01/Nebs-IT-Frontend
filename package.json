@@ -16,6 +16,7 @@
     "@reduxjs/toolkit": "^2.3.0",
     "antd": "^5.19.1",
     "chart.js": "^4.4.3",
+    "dayjs": "^1.11.19",
     "i18next": "^24.2.0",
     "jodit-react": "^4.1.2",
     "jspdf": "^2.5.2",

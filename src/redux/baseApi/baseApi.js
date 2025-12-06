@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const baseApi = createApi({
   reducerPath: "pokemonApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://aminula5000.sobhoy.com/api/v1",
+    baseUrl: "http://localhost:5000/api/v1/notice",
     prepareHeaders: (headers, { getState }) => {
       // Retrieve the token from your store or local storage
       const token = getState().auth.token;
@@ -13,6 +13,6 @@ export const baseApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["User", "Categories", "admin","shorlist", "blog", "job","faq"],
+  tagTypes: ["notice"],
   endpoints: () => ({}),
 });
