@@ -1,86 +1,79 @@
+/* eslint-disable react/prop-types */
+
+
 import { useParams, Link } from "react-router-dom";
 import { useSingNoticeQuery } from "../../redux/notice/noticeApi";
 
 const SingleNotice = () => {
-  const { id } = useParams(); // this is just the ID string
-  const { data, isLoading, error } = useSingNoticeQuery(id); // fetch notice
-
+  const { id } = useParams();
+  const { data, isLoading, error } = useSingNoticeQuery(id);
 
   if (isLoading) return <p className="text-center mt-10">Loading...</p>;
   if (error) return <p className="text-center mt-10 text-red-500">Error loading notice</p>;
 
-  const notice = data?.data?.attributes; // your actual notice object
-  console.log(notice)
+  const notice = data?.data?.attributes;
   if (!notice) return <p className="text-center mt-10">Notice not found</p>;
 
   return (
     <div className="max-w-5xl mx-auto my-8 p-6 bg-white shadow-lg rounded-xl border border-gray-200">
-     <Link to="/" className="text-blue-500 hover:underline text-sm">Back</Link>
-     
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-bold text-gray-800">{notice.title}</h2>
-        
+      <Link to="/" className="text-blue-500 hover:underline text-sm">Back</Link>
+
+      <h2 className="text-2xl font-bold text-gray-800 mt-2 mb-6">{notice.title}</h2>
+
+      {/* Info Section */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <Info label="Target" value={notice.target} />
+        <Info label="Notice Type" value={notice.noticeType} />
+        <Info label="Employee Name" value={notice.employeeName || "-"} />
+        <Info label="Position" value={notice.position || "-"} />
+        <Info label="Employee ID" value={notice.employeeId || "-"} />
+        <Info
+          label="Publish Date"
+          value={new Date(notice.publishDate).toLocaleDateString()}
+        />
+        <Info
+          label="Status"
+          value={notice.status}
+        />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <div className="flex gap-2">
-          <p className="text-gray-600 font-medium">Target:</p>
-          <p className="text-gray-800">{notice.target}</p>
-        </div>
-
-        <div className="flex gap-2">
-          <p className="text-gray-600 font-medium">Notice Type:</p>
-          <p className="text-gray-800">{notice.noticeType}</p>
-        </div>
-
-        <div className="flex gap-2">
-          <p className="text-gray-600 font-medium">Employee Name:</p>
-          <p className="text-gray-800">{notice.employeeName || "-"}</p>
-        </div>
-
-        <div className="flex gap-2">
-          <p className="text-gray-600 font-medium">Position:</p>
-          <p className="text-gray-800">{notice.position || "-"}</p>
-        </div>
-
-        <div className="flex gap-2">
-          <p className="text-gray-600 font-medium">Employee ID:</p>
-          <p className="text-gray-800">{notice.employeeId || "-"}</p>
-        </div>
-
-        <div className="flex gap-2">
-          <p className="text-gray-600 font-medium">Publish Date:</p>
-          <p className="text-gray-800">{new Date(notice.publishDate).toLocaleDateString()}</p>
-        </div>
-
-        <div className="flex gap-2">
-          <p className="text-gray-600 font-medium">Status:</p>
-          <p className={`font-semibold ${notice.status === "Published" ? "text-green-600" : "text-blue-600"}`}>
-            {notice.status}
-          </p>
-        </div>
-      </div>
-
-      <div className="flex mt-4">
-        <p className="text-gray-600 font-medium mb-2">Description:</p>
+      {/* Description */}
+      <div className="flex gap-3 mb-6">
+        <p className="text-gray-600 font-medium mb-1">notice_body:</p>
         <p className="text-gray-800 whitespace-pre-line">{notice.notice_body}</p>
       </div>
 
+      {/* PDF Preview + Download */}
       {notice.file && (
-        <div className="mt-4">
-          <p className="text-gray-600 font-medium mb-2">Attachment:</p>
+        <div className="mt-6">
+          <p className="text-gray-600 font-medium mb-2">Attachment (PDF):</p>
+
+          {/* PDF Preview */}
+          <iframe
+            src={"http://localhost:5000/uploads/users/attachment"}
+            className="w-full h-[600px] border rounded-lg mb-4"
+          />
+
+          {/* Download Button */}
           <a
-            href={notice.file}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-500 hover:underline"
+            href={notice.attachment}
+            download
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg"
           >
-            View / Download File
+            Download PDF
           </a>
         </div>
       )}
     </div>
   );
 };
+
+/* SMALL COMPONENT FOR LABEL + VALUE */
+const Info = ({ label, value }) => (
+  <div className="flex gap-2">
+    <p className="text-gray-600 font-medium">{label}:</p>
+    <p className="text-gray-800">{value}</p>
+  </div>
+);
 
 export default SingleNotice;

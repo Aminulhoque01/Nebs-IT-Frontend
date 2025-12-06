@@ -4,6 +4,7 @@ import MainLayout from "../layout/MainLayout";
 import NoticeManagement from "../page/Notice/Notice";
 import CreateNotice from "../page/AddNotice/AddNotice";
 import SingleNotice from "../page/SingleNotice/SingleNotice";
+import EditNotice from "../page/EditeNotice/EditeNotice";
  
  
  
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path:"/notice/:id",
         element: <SingleNotice />,
+      },
+      {
+        path:"/edit/:id",
+        element: <EditNotice />,
       },
      
       

@@ -6,12 +6,12 @@ import { useState } from "react";
 import {
   useGetAllNoticeQuery,
   useSingNoticeQuery,
+  useToggleStatusMutation,
 } from "../../redux/notice/noticeApi";
 import dayjs from "dayjs";
+import { toast } from "sonner";
 
 const NoticeManagement = () => {
-   
- 
   const [filters, setFilters] = useState({
     page: 1,
     limit: 10,
@@ -26,11 +26,26 @@ const NoticeManagement = () => {
 
   const notices = notice?.data?.attributes?.data || [];
   const meta = notice?.meta;
-  console.log(notice)
+  console.log(notice);
 
   const handlePageChange = (p) => {
     setFilters({ ...filters, page: p });
   };
+
+ const [toggleStatus] = useToggleStatusMutation();
+
+const handleToggle = async (item) => {
+  if (item.status === "Draft") return; // never toggle Draft
+
+  try {
+    await toggleStatus(item._id).unwrap(); // backend toggles between Published <-> Unpublished
+    toast.success("Status toggled successfully");
+  } catch (error) {
+    console.error("Failed to toggle status:", error);
+    toast.error("Failed to toggle status");
+  }
+};
+
 
   return (
     <div className="w-full p-4 md:p-6 min-h-screen">
@@ -151,19 +166,32 @@ const NoticeManagement = () => {
                   {dayjs(item.publishDate).format("DD-MMM-YYYY h:mm A")}
                 </td>
 
+                
+
                 <td className="py-3 px-4">
-                  {item.status === "Published" ? (
-                    <span className="text-green-700 bg-green-100 px-3 py-1 rounded-full text-xs font-medium">
-                      Published
-                    </span>
-                  ) : item.status === "Draft" ? (
+                  {item.status === "Draft" ? (
                     <span className="text-orange-700 bg-orange-100 px-3 py-1 rounded-full text-xs font-medium">
                       Draft
                     </span>
                   ) : (
-                    <span className="text-gray-700 bg-gray-200 px-3 py-1 rounded-full text-xs font-medium">
-                      Unpublished
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          className="sr-only peer"
+                          checked={item.status === "Published"} // checked if Published
+                          onChange={() => handleToggle(item)} // toggle Published <-> Unpublished
+                        />
+
+                        {/* Background */}
+                        <div className="w-12 h-6 bg-gray-300 rounded-full peer peer-checked:bg-green-500 transition-colors"></div>
+
+                        {/* Knob */}
+                        <div className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-all peer-checked:translate-x-6"></div>
+                      </label>
+
+                      <span className="text-sm font-medium">{item.status}</span>
+                    </div>
                   )}
                 </td>
 
@@ -171,7 +199,10 @@ const NoticeManagement = () => {
                   <Link to={`/notice/${item._id}`}>
                     <FiEye className="cursor-pointer hover:text-black" />
                   </Link>
-                  <FiEdit2 className="cursor-pointer hover:text-black" />
+
+                  <Link to={`/edit/${item._id}`}>
+                    <FiEdit2 className="cursor-pointer hover:text-black" />
+                  </Link>
                   <FiMoreVertical className="cursor-pointer hover:text-black" />
                 </td>
               </tr>

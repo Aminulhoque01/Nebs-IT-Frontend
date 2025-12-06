@@ -36,18 +36,58 @@ export const noticeApi = baseApi.injectEndpoints({
         method: "POST",
         body: payload,
       }),
-      invalidatesTags:["notice"]
+      invalidatesTags: ["notice"],
     }),
 
-    singNotice:builder.query({
-      query:(id)=>(
-        {
+    singNotice: builder.query({
+      query: (id) => ({
         url: `/${id}`,
         method: "GET",
       }),
       providesTags: ["notice"],
+    }),
+
+    updatedNotice: builder.mutation({
+      query: ({ id, payload }) => ({
+        url: `/${id}`,
+        method: "PUT",
+        body: payload,
+      }),
+      invalidatesTags: ["notice"],
+    }),
+   toggleStatus: builder.mutation({
+      query: (id) => ({
+        url: `/${id}/toggle-status`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["Notice"], // optional, remove if you DO NOT want refetch
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        // Optimistic update
+        const patchResult = dispatch(
+          noticeApi.util.updateQueryData("getNotices", undefined, (draft) => {
+            const item = draft.data.find((x) => x._id === id);
+            if (item) {
+              item.status =
+                item.status === "Published" ? "Unpublished" : "Published";
+            }
+          })
+        );
+
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo(); // rollback UI if failed
+        }
+      },
     })
+
   }),
 });
 
-export const { useGetAllNoticeQuery, useCreateNoticeMutation, useSingNoticeQuery } = noticeApi;
+export const {
+  useGetAllNoticeQuery,
+  useCreateNoticeMutation,
+  useSingNoticeQuery,
+  useUpdatedNoticeMutation,
+  useToggleStatusMutation
+} = noticeApi;

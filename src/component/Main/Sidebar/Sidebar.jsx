@@ -17,7 +17,7 @@ const dynamicSidebarItems = [
     icon: <FaTh className="size-6" />,
   },
   {
-    path: "/Employee",
+    path: "/",
     name: "Employee",
     icon: <FaUserTie  className="size-6" />,
   },
