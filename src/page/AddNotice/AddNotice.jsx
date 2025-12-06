@@ -18,7 +18,7 @@ const CreateNotice = () => {
     position: "",
     noticeType: "",
     publishDate: "",
-    description: "",
+    notice_body: "",
     status: "",
   });
 
@@ -59,7 +59,7 @@ const CreateNotice = () => {
       position: "",
       noticeType: "",
       publishDate: "",
-      description: "",
+      notice_body: "",
       status: "",
     });
     setFile(null);
@@ -182,7 +182,7 @@ const CreateNotice = () => {
             <label className="font-medium text-gray-700">Notice Body</label>
             <textarea
               rows={4}
-              name="description"
+              name="notice_body"
               value={formData.notice_body}
               onChange={handleChange}
               className="w-full border rounded-lg p-3 bg-gray-50"

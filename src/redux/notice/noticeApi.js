@@ -55,13 +55,20 @@ export const noticeApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["notice"],
     }),
-   toggleStatus: builder.mutation({
+    toggleStatus: builder.mutation({
       query: (id) => ({
         url: `/${id}/toggle-status`,
         method: "PATCH",
       }),
       invalidatesTags: ["Notice"], // optional, remove if you DO NOT want refetch
-       
+    }),
+   
+    deleteNotice:builder.mutation({
+       query: (id) => ({
+        url: `/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Notice"],
     })
 
   }),
@@ -72,5 +79,6 @@ export const {
   useCreateNoticeMutation,
   useSingNoticeQuery,
   useUpdatedNoticeMutation,
-  useToggleStatusMutation
+  useToggleStatusMutation,
+  useDeleteNoticeMutation
 } = noticeApi;
