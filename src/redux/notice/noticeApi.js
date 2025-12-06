@@ -61,24 +61,7 @@ export const noticeApi = baseApi.injectEndpoints({
         method: "PATCH",
       }),
       invalidatesTags: ["Notice"], // optional, remove if you DO NOT want refetch
-      async onQueryStarted(id, { dispatch, queryFulfilled }) {
-        // Optimistic update
-        const patchResult = dispatch(
-          noticeApi.util.updateQueryData("getNotices", undefined, (draft) => {
-            const item = draft.data.find((x) => x._id === id);
-            if (item) {
-              item.status =
-                item.status === "Published" ? "Unpublished" : "Published";
-            }
-          })
-        );
-
-        try {
-          await queryFulfilled;
-        } catch {
-          patchResult.undo(); // rollback UI if failed
-        }
-      },
+       
     })
 
   }),
