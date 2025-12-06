@@ -3,7 +3,15 @@ import { baseApi } from "../baseApi/baseApi";
 export const noticeApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllNotice: builder.query({
-      query: ({ page = 1, limit = 10, searchTerm = "", status = "", target = "", employee = "", date = "" }) => {
+      query: ({
+        page = 1,
+        limit = 10,
+        searchTerm = "",
+        status = "",
+        target = "",
+        employee = "",
+        date = "",
+      }) => {
         const params = new URLSearchParams();
 
         params.append("page", page);
@@ -16,13 +24,30 @@ export const noticeApi = baseApi.injectEndpoints({
         if (date) params.append("publishDate", date);
 
         return {
-          url: `notice/?${params.toString()}`,
+          url: `/notices?${params.toString()}`,
           method: "GET",
         };
       },
       providesTags: ["notice"],
     }),
+    createNotice: builder.mutation({
+      query: (payload) => ({
+        url: "/create-notice",
+        method: "POST",
+        body: payload,
+      }),
+      invalidatesTags:["notice"]
+    }),
+
+    singNotice:builder.query({
+      query:(id)=>(
+        {
+        url: `/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["notice"],
+    })
   }),
 });
 
-export const { useGetAllNoticeQuery } = noticeApi;
+export const { useGetAllNoticeQuery, useCreateNoticeMutation, useSingNoticeQuery } = noticeApi;

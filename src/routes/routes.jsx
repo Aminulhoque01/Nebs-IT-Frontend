@@ -3,6 +3,7 @@ import MainLayout from "../layout/MainLayout";
 
 import NoticeManagement from "../page/Notice/Notice";
 import CreateNotice from "../page/AddNotice/AddNotice";
+import SingleNotice from "../page/SingleNotice/SingleNotice";
  
  
  
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path:"/add-notice",
         element: <CreateNotice />,
+      },
+      {
+        path:"/notice/:id",
+        element: <SingleNotice />,
       },
      
       
