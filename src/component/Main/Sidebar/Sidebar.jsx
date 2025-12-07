@@ -9,6 +9,12 @@ import { RiLogoutCircleRLine } from "react-icons/ri";
 import { FaBriefcase, FaBuilding, FaCheckSquare,   FaCog,   FaHeadphones,   FaTh,  FaUserTie } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 import { PiExcludeSquareLight } from "react-icons/pi";
+import { IoMdDocument } from "react-icons/io";
+import { FaClipboardList } from "react-icons/fa";
+import { RxActivityLog } from "react-icons/rx";
+import { GiExitDoor } from "react-icons/gi";
+import { CgProfile } from "react-icons/cg";
+
 
 const dynamicSidebarItems = [
   {
@@ -50,29 +56,29 @@ const dynamicSidebarItems = [
   {
     path: "/Document manager",
     name: "Document manager",
-    icon: <FaCog className="size-6" />,
+    icon: <IoMdDocument className="size-6" />,
   },
   {
     path: "/add-notice",
     name: "Notice Board",
-    icon: <FaCog className="size-6" />,
+    icon: <FaClipboardList className="size-6" />,
   },
   
   {
     path: "/Activity Log",
     name: "Activity Log",
-    icon: <FaCog className="size-6" />,
+    icon: <RxActivityLog className="size-6" />,
   },
   {
     path: "/Exit Interview",
     name: "Exit Interview",
-    icon: <FaCog className="size-6" />,
+    icon: <GiExitDoor className="size-6" />,
   },
   
   {
     path: "/Profile",
     name: "Profile",
-    icon: <FaCog className="size-6" />,
+    icon: <CgProfile className="size-6" />,
   },
   
   
